@@ -60,7 +60,7 @@ switch (genero){
 }
 */
 
-
+//declaracion de variables//
 const precioKm = 100;
 const dto = 0.10;
 const plus = 0.5;
@@ -70,13 +70,15 @@ let apellido;
 let nombre
 let dni;
 let rol;
-let acompañado;
-let acompañantes = 0
-let usuarioAcompañante;
+let acompañado; //si o no para ingresar al bucle para generar variables de los acompannn1antes
+let acompañantes // variable predeterminada si ingresa no
+let usuarioAcompañante; //varaiable a la cual se le agregan las variables  se usa para el objeto
 let apellidoAcompañante;
 let nombreAcompañante;
 let dniAcompañante;
 let rolAcompañante;
+
+//constructor de usuario
 class Usuario {
     constructor(suApellido, suNombre, suDni, suRol) {
         this.suApellido = suApellido;
@@ -85,6 +87,7 @@ class Usuario {
         this.suRol = suRol;
     }
 };
+//constructor del usuario acompanante
 class UsuarioAcompañante {
     constructor(suApellido, suNombre, suDni, suRol) {
         this.suApellido = suApellido;
@@ -93,36 +96,37 @@ class UsuarioAcompañante {
         this.suRol = suRol;
     }
 };
+//funcion para pedir datos de usuario
 function PedirDatos() {
     apellido = prompt(`ingrese su apellido`).toLowerCase();
     nombre = prompt(`ingrese su nombre`).toLowerCase();
     dni = prompt(`ingrese su dni`);
     rol = prompt(`ingrese si su rol es de  "conductor" o "pasajero"`).toLowerCase()
     if (rol == "conductor") {
-        lugares = prompt(`ingrese lugares disponibles en su vehiculo`)
+        lugares = Number(prompt(`ingrese lugares disponibles en su vehiculo`))
     }
-    else if (rol === "pasajero") {
+    else if (rol == "pasajero") {
         acompañado = prompt(`ingrese "si" si viaja acompañado o "no" si viaja solo`).toLowerCase();
-        if (acompañado === "si") {
-            acompañantes = Number(prompt(`con cuantas personas viaja?`), lugares = acompañantes); //aca iria el ciclo pidiendo datos de acompa;antes//
-        } else if (acompañado === "no") {lugares = 1 }
+        if (acompañado == "si") {
+            acompañantes = Number(prompt(`con cuantas personas viaja?`)), alert(acompañantes), lugares = acompañantes; //aca iria el ciclo pidiendo datos de acompa;antes//
+        } else if (acompañado == "no") { lugares = 1 }
     } else {
         alert("ingrese rol valido")
     };
 }
-function PedirDatosAcompañante() {
-    apellido = prompt(`ingrese su apellido`).toLowerCase();
-    nombre = prompt(`ingrese su nombre`).toLowerCase();
-    dni = prompt(`ingrese su dni`);
-    rol = prompt(`ingrese si su rol es de  "conductor" o "pasajero"`).toLowerCase()
-};
+
+//pido datos del usuario
 PedirDatos();
+//agrupo los datos al usuario
 let usuario = new Usuario(apellido, nombre, dni, rol);
 alert(`BIENVENIDO ` + `usted es ` + usuario.suApellido + ` ` + usuario.suNombre + `su dni es ` + usuario.suDni + ` su rol es ` + usuario.suRol);
+//km del viaje
 let km = Number(prompt(`ingrese la distancia de su viaje`));
+// precios del viaje
 let precioDeViaje = km * lugares * precioKm;
 let precioBruto = 0;
 let precioFinal = 0;
+//pedido del codigo de dto.
 let codigo = prompt(`ingrese el código de descuento o plus si tiene, sino pulse en aceptar`).toUpperCase();
 function saberPrecioBruto() {
     if ((rol == "conductor") && (codigo == "MIPRIMERVIAJE" || codigo === "HELLOCARRY")) {
@@ -136,6 +140,7 @@ function saberPrecioBruto() {
         precioBruto = precioDeViaje;
     } else { };
 }
+//funcion para saber el precio final si es pasajero o conductor
 function saberPrecioFinal() {
     if (rol == "pasajero") {
         precioFinal = precioBruto + (precioBruto * comision);
@@ -147,7 +152,7 @@ function saberPrecioFinal() {
 }
 saberPrecioBruto();
 saberPrecioFinal();
-//viajes:// 
+//viajes// 
 let lugarDePartida;
 let lugarDeLlegada;
 function PedirTrayecto() {
@@ -155,43 +160,107 @@ function PedirTrayecto() {
     lugarDeLlegada = prompt("ingrese su destino del viaje: BUE, MDQ, MDZ, BRC, CDB").toLowerCase();
 };
 PedirTrayecto();
-if (((lugarDePartida) || (lugarDeLlegada) != "bue") || ((lugarDePartida) || (lugarDeLlegada) != "mdq") || ((lugarDePartida) || (lugarDeLlegada) != "mdz") || ((lugarDePartida) || (lugarDeLlegada) != "brc") || ((lugarDePartida) || (lugarDeLlegada) != "cdb")) { alert("ingrese locacion valida") }
-else { alert("su trayecto fue validado") }
+if (lugarDePartida == "bue" || "mdq" || "mdz" || "brc" || "cdb" && lugarDeLlegada == "bue" || "mdq" || "mdz" || "brc" || "cdb") {
+    alert("trayecto validado")
+} else { alert("ingrese trayecto valido") };
+// valores de lugares//
 const kmbue = 0;
 const kmmdq = 500;
 const kmmdz = 1200;
 const kmbrc = 1400;
 const kmcdb = 800;
-let kilometraje = 0;
+//valores de puntos de trayectos//
 let kmOrigen = 0;
 let kmDestino = 0;
-if (lugarDePartida = "bue") { kmOrigen = kmbue }
-else if (lugarDePartida = "mdq") { kmOrigen = kmmdq }
-else if (lugarDePartida = "mdz") { kmOrigen = kmmdz }
-else if (lugarDePartida = "brc") { kmOrigen = kmbrc }
-else if (lugarDePartida = "cdb") { kmOrigen = kmcdb };
-if (lugarDeLlegada = "bue") { kmDestino = kmbue }
-else if (lugarDeLlegada = "mdq") { kmDestino = kmmdq }
-else if (lugarDeLlegada = "mdz") { kmDestino = kmmdz }
-else if (lugarDeLlegada = "brc") { kmDestino = kmbrc }
-else if (lugarDeLlegada = "cdb") { kmDestino = kmcdb }
-function calculadoraKm() { kilometraje = kmOrigen - kmDestino };
+// asignacion de kilometrajes segun puntos de trayectos//
+if (lugarDePartida == "bue") { kmOrigen = kmbue }
+else if (lugarDePartida == "mdq") { kmOrigen = kmmdq }
+else if (lugarDePartida == "mdz") { kmOrigen = kmmdz }
+else if (lugarDePartida == "brc") { kmOrigen = kmbrc }
+else if (lugarDePartida == "cdb") { kmOrigen = kmcdb }
+else (alert("ingreso erroneo"));
+if (lugarDeLlegada == "bue") { kmDestino = kmbue }
+else if (lugarDeLlegada == "mdq") { kmDestino = kmmdq }
+else if (lugarDeLlegada == "mdz") { kmDestino = kmmdz }
+else if (lugarDeLlegada == "brc") { kmDestino = kmbrc }
+else if (lugarDeLlegada == "cdb") { kmDestino = kmcdb }
+else (alert("ingreso erroneo"));
+//kilometraje es resultado de trayecto//
+let kilometraje = kmDestino - kmOrigen
+function calculadoraKm() { if (kilometraje < 0) { kilometraje * -1 } };
 calculadoraKm();
 alert(`su distacia del viaje es de` + kilometraje + `km`);
-class Viajes {
-    constructor(origen, destino, km, precio, lugaresDisp, id) {
-        this.origen = origen;
-        this.destino = destino;
-        this.km = km;
-        this.precio = precio;
-        this.lugaresDisp = lugaresDisp;
-        this.id = id;
-    }
+// //constructor objeto viaje//
+// class Viajes {
+//     constructor(origen, destino, km, precio, lugaresDisp, id) {
+//         this.origen = origen;
+//         this.destino = destino;
+//         this.km = km;
+//         this.precio = precio;
+//         this.lugaresDisp = lugaresDisp;
+//         this.id = id;
+//     }
+// };
+// const idViaje = () => { return Math.round(Math.random() * 10000) };
+// let viaje = new Viajes(lugarDePartida, lugarDeLlegada, kilometraje, precioDeViaje, lugares, idViaje);
+//declaracion de objeto acompañante//
+const Acompañante1 = new UsuarioAcompañante(apellidoA1, nombreA1, dniA1, rolA1);
+const Acompañante2 = new UsuarioAcompañante(apellidoA2, nombreA2, dniA2, rolA2);
+const Acompañante3 = new UsuarioAcompañante(apellidoA3, nombreA3, dniA3, rolA3);
+const Acompañante4 = new UsuarioAcompañante(apellidoA4, nombreA4, dniA4, rolA4);
+//funcion para pedir datos de Acompaniante1
+function PedirDatosAcompañante1() {
+    const apellidoA1 = prompt(`ingrese su apellido`).toLowerCase();
+    const nombreA1 = prompt(`ingrese su nombre`).toLowerCase();
+    const dniA1 = prompt(`ingrese su dni`);
+    const rolA1 = prompt(`ingrese si su rol es de  "conductor" o "pasajero"`).toLowerCase()
 };
-const idViaje = () => { return Math.round(Math.random() * 10000) };
-let viaje = new Viajes(lugarDePartida, lugarDeLlegada, calculadoraKm(), precioDeViaje, lugares, idViaje);
-for (let i = 0; i = acompañantes; i++){
-    PedirDatosAcompañante();
-    usuarioAcompañante = new UsuarioAcompañante(apellidoAcompañante, nombreAcompañante, dniAcompañante, rolAcompañante);
+//funcion para pedir datos de Acompaniante2
+function PedirDatosAcompañante2() {
+    const apellidoA2 = prompt(`ingrese su apellido`).toLowerCase();
+    const nombreA2 = prompt(`ingrese su nombre`).toLowerCase();
+    const dniA2 = prompt(`ingrese su dni`);
+    const rolA2 = prompt(`ingrese si su rol es de  "conductor" o "pasajero"`).toLowerCase()
 };
-//sacvar el km del proyeco anterioir, poner la variable nueva de la resta. y agregar un promp que pregunte si es un viaje personalizado.. pero no se si para esta entrega//
+//funcion para pedir datos de Acompaniante3
+function PedirDatosAcompañante3() {
+    const apellidoA3 = prompt(`ingrese su apellido`).toLowerCase();
+    const nombreA3 = prompt(`ingrese su nombre`).toLowerCase();
+    const dniA3 = prompt(`ingrese su dni`);
+    const rolA3 = prompt(`ingrese si su rol es de  "conductor" o "pasajero"`).toLowerCase()
+};
+//funcion para pedir datos de Acompaniante4
+function PedirDatosAcompañante4() {
+    const apellidoA4 = prompt(`ingrese su apellido`).toLowerCase();
+    const nombreA4 = prompt(`ingrese su nombre`).toLowerCase();
+    const dniA4 = prompt(`ingrese su dni`);
+    const rolA4 = prompt(`ingrese si su rol es de  "conductor" o "pasajero"`).toLowerCase()
+};
+if (acompañantes == 1) {
+    alert('Usted ingresará los datos del unico acompañate');
+    PedirDatosAcompañante1()
+} else if (acompañantes == 2) {
+    alert('Usted ingresará los datos del compañate 1');
+    PedirDatosAcompañante1()
+    alert('Usted ingresará los datos del acompañnate 2');
+    PedirDatosAcompañante2()
+} else if (acompañantes == 3) {
+    alert('Usted ingresará los datos del compañate 1');
+    PedirDatosAcompañante1()
+    alert('Usted ingresará los datos del acompañnate 2');
+    PedirDatosAcompañante2()
+    alert('Usted ingresará los datos del acompañnate 3');
+    PedirDatosAcompañante3()
+} else if (acompañantes == 4) {
+    alert('Usted ingresará los datos del compañate 1');
+    PedirDatosAcompañante1()
+    alert('Usted ingresará los datos del acompañate 2');
+    PedirDatosAcompañante2()
+    alert('Usted ingresará los datos del acompañate 3');
+    PedirDatosAcompañante3()
+    alert('Usted ingresará los datos del acompañate 4');
+    PedirDatosAcompañante4()
+}
+const pasajerosAcompañantes = [Acompañante1, Acompañante2, Acompañante3, Acompañante4];
+console.log(pasajerosAcompañantes);
+//sacvar el km del proyeco anterioir, poner la variable nueva de la resta. y agregar un promp que pregunte si es un viaje personalizado.. pero no se si para esta entrega
